@@ -11,26 +11,33 @@
 
 
   <script type="text/javascript">
+    //initiate the Phaser framework
+    var controls = {};
+    var game = new Phaser.Game(800, 800, Phaser.AUTO);
 
-  //initiate the Phaser framework
-  var game = new Phaser.Game(3000, 800, Phaser.AUTO);
+    var GameState = {
 
-  var GameState = {
+
 
       //initiate game settings
-      init: function (){
-
-      },
+      init: function() {},
 
       //load the game assets before the game starts
       preload: function() {
-          this.game.load.spritesheet('player', 'assets/p1_stand.png', 70, 70);
-          this.game.load.tilemap('tilemap', 'assets/level.json', null, Phaser.Tilemap.TILED_JSON);
-          this.game.load.image('tiles', 'assets/tiles_spritesheet.png');
-        },
+        this.game.load.spritesheet('player', 'assets/p1_stand.png', 70, 70);
+        this.game.load.tilemap('tilemap', 'assets/level.json', null, Phaser.Tilemap.TILED_JSON);
+        this.game.load.image('tiles', 'assets/tiles_spritesheet.png');
+      },
 
       //execute after everything is loaded
       create: function() {
+
+        controls = {
+          right : this.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
+          left : this.input.keyboard.addKey(Phaser.Keyboard.LEFT),
+          up : this.input.keyboard.addKey(Phaser.Keyboard.UP),
+        };
+
 
         //Start the Arcade Physics systems
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -53,7 +60,7 @@
         this.map.setCollisionBetween(1, 100, true, 'GroundLayer');
 
         //Add the sprite to the game and enable arcade physics on it
-        this.sprite = this.game.add.sprite(50, this.game.world.centerY, 'player');
+        this.sprite = this.game.add.sprite(50, 50, 'player');
         this.game.physics.arcade.enable(this.sprite);
 
         //Change the world size to match the size of this layer
@@ -73,35 +80,41 @@
         this.game.camera.follow(this.sprite);
 
         //Enable cursor keys so we can create some controls
-        this.cursors = this.game.input.keyboard.createCursorKeys();
+        //this.cursors = this.game.input.keyboard.createCursorKeys();
+
+
       },
 
       update: function() {
 
         // //Make the sprite collide with the ground layer
-        // this.game.physics.arcade.collide(this.sprite, this.groundLayer);
-        //
-        // //Make the sprite jump when the up key is pushed
-        // if (this.cursors.up.isDown) {
-        //   this.sprite.body.velocity.y = -500;
-        // }
+        this.game.physics.arcade.collide(this.sprite, this.groundLayer);
+
+        if(controls.up.isDown){
+            this.sprite.body.velocity.y = -600;
+
+        }
+
+        if(controls.right.isDown){
+          this.sprite.body.bounce.y = 0.2;
+        }
+
+        if(controls.left.isDown){
+          this.sprite.body.bounce.y = 0.2;
+        }
+
 
       }
-  };
+    };
 
-  game.state.add('GameState', GameState);
-  game.state.start('GameState');
-
-
-
-
-
-  ////////////////////
+    game.state.add('GameState', GameState);
+    game.state.start('GameState');
 
 
 
 
 
+    ////////////////////
   </script>
 
 </body>
