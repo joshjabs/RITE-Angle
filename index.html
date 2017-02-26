@@ -76,18 +76,12 @@
         this.sprite.body.bounce.y = 0.2;
         this.sprite.body.gravity.y = 2000;
         this.sprite.body.gravity.x = 20;
-//        this.sprite.body.velocity.x = 100;
+        this.sprite.body.velocity.x = 100;
           
-//        this._runner.body.bounce.y = 0.2;
-//        this._runner.sprite.body.gravity.y = 2000;
-//        this._runner.sprite.body.gravity.x = 20;
-//        this._runner.sprite.body.velocity.x = 100;
-
         //Create a running animation for the sprite and play it
         this.sprite.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 71], 10, true);
 //        this.sprite.animations.play('right');
-//        this._runner.animations.add('run', Phaser.Animation.generateFrameNames('_runner/run/', 1, 8, '', 4), 10, true, false);
-//        this._runner.animations.play('run');
+
 
         //Make the camera follow the sprite
         this.game.camera.follow(this.sprite);
@@ -102,7 +96,7 @@
 
         // //Make the sprite collide with the ground layer
         this.game.physics.arcade.collide(this.sprite, this.groundLayer);
-//          this.game.physics.arcade.collide(this._runner, this.groundLayer);
+//          
 
         if(controls.up.isDown){
             this.sprite.body.velocity.y = -600;
@@ -113,24 +107,12 @@
 //          this.sprite.body.bounce.y = 0.2;
             this.sprite.animations.play('right');
         }
+          
 
         if(controls.left.isDown){
           this.sprite.body.bounce.y = 0.2;
         }
-//       
-//                  if(controls.up.isDown){
-//            this._runner.body.velocity.y = -600;
-//
-//        }
-//
-//        if(controls.right.isDown){
-//          this._runner.body.bounce.y = 0.2;
-//        }
-//
-//        if(controls.left.isDown){
-//          this._runner.body.bounce.y = 0.2;
-//        }
-//
+
 //
      }
     };
