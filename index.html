@@ -14,6 +14,7 @@
     //initiate the Phaser framework
     var controls = {};
     var game = new Phaser.Game(800, 800, Phaser.AUTO);
+//    var _runner;  
 
     var GameState = {
 
@@ -24,7 +25,8 @@
 
       //load the game assets before the game starts
       preload: function() {
-        this.game.load.spritesheet('player', 'assets/p1_stand.png', 70, 70);
+//        this.game.load.atlasJSONHash('runner', 'assets/runner.png', 'assets/runner.json');
+        this.game.load.spritesheet('player', 'assets/therun.png', 280, 385);
         this.game.load.tilemap('tilemap', 'assets/level.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tiles', 'assets/tiles_spritesheet.png');
       },
@@ -61,7 +63,11 @@
 
         //Add the sprite to the game and enable arcade physics on it
         this.sprite = this.game.add.sprite(50, 50, 'player');
+        
         this.game.physics.arcade.enable(this.sprite);
+//          this.game.physics.arcade.enable(_runner);
+//        this._runner = game.add.sprite(0, 180, 'runner', '_runner/run/0001');
+//        this._runner.scale.setTo(0.5,0.5);
 
         //Change the world size to match the size of this layer
         this.groundLayer.resizeWorld();
@@ -70,11 +76,18 @@
         this.sprite.body.bounce.y = 0.2;
         this.sprite.body.gravity.y = 2000;
         this.sprite.body.gravity.x = 20;
-        this.sprite.body.velocity.x = 100;
+//        this.sprite.body.velocity.x = 100;
+          
+//        this._runner.body.bounce.y = 0.2;
+//        this._runner.sprite.body.gravity.y = 2000;
+//        this._runner.sprite.body.gravity.x = 20;
+//        this._runner.sprite.body.velocity.x = 100;
 
         //Create a running animation for the sprite and play it
-        this.sprite.animations.add('right', [5, 6, 7, 8], 10, true);
-        this.sprite.animations.play('right');
+        this.sprite.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 71], 10, true);
+//        this.sprite.animations.play('right');
+//        this._runner.animations.add('run', Phaser.Animation.generateFrameNames('_runner/run/', 1, 8, '', 4), 10, true, false);
+//        this._runner.animations.play('run');
 
         //Make the camera follow the sprite
         this.game.camera.follow(this.sprite);
@@ -89,6 +102,7 @@
 
         // //Make the sprite collide with the ground layer
         this.game.physics.arcade.collide(this.sprite, this.groundLayer);
+//          this.game.physics.arcade.collide(this._runner, this.groundLayer);
 
         if(controls.up.isDown){
             this.sprite.body.velocity.y = -600;
@@ -96,15 +110,29 @@
         }
 
         if(controls.right.isDown){
-          this.sprite.body.bounce.y = 0.2;
+//          this.sprite.body.bounce.y = 0.2;
+            this.sprite.animations.play('right');
         }
 
         if(controls.left.isDown){
           this.sprite.body.bounce.y = 0.2;
         }
-
-
-      }
+//       
+//                  if(controls.up.isDown){
+//            this._runner.body.velocity.y = -600;
+//
+//        }
+//
+//        if(controls.right.isDown){
+//          this._runner.body.bounce.y = 0.2;
+//        }
+//
+//        if(controls.left.isDown){
+//          this._runner.body.bounce.y = 0.2;
+//        }
+//
+//
+     }
     };
 
     game.state.add('GameState', GameState);
