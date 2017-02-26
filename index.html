@@ -79,7 +79,7 @@
         this.sprite.body.velocity.x = 100;
           
         //Create a running animation for the sprite and play it
-        this.sprite.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 71], 10, true);
+        this.sprite.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7], 10, true);
 //        this.sprite.animations.play('right');
 
 
@@ -106,6 +106,7 @@
         if(controls.right.isDown){
 //          this.sprite.body.bounce.y = 0.2;
             this.sprite.animations.play('right');
+            this.sprite.body.velocity.x = 500;
         }
           
 

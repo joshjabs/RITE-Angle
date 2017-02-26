@@ -3,39 +3,52 @@ var game = new Phaser.Game(592, 360, Phaser.AUTO);
 
 var GameState = {
     
-    //initiate game settings
-    init: function (){
-        
-    },
+//    //initiate game settings
+//    init: function (){
+//        
+//    },
     
     //load the game assets before the game starts
     preload: function (){
         this.load.image('platform', 'assets/images/Platform1.png');
-    this.load.image('triangle', 'assets/images/triangle1.png');
-    this.load.image('circle', 'assets/images/circle1.png');    
+//    this.load.image('triangle', 'assets/images/triangle1.png');
+//    this.load.image('circle', 'assets/images/circle1.png');    
+         game.physics.startSystem(Phaser.Physics.ARCADE);
+        game.physics.arcade.gravity.y = 1000;
 
     },
     
     //execute after everything is loaded
     create: function (){
       game.stage.backgroundColor = "#ffffff"
+     
         
       this.platform1 = this.game.add.sprite(148, 100, 'platform');
+         this.game.physics.arcade.enable(this.platform1);
+         this.platform1.body.allowGravity = true;
+        
+        
       this.platform2 = this.game.add.sprite(148, 0, 'platform');
+        this.game.physics.arcade.enable(this.platform2);
+        this.platform2.body.allowGravity = true;
         
-      this.circle1 = this.game.add.sprite(350, 300, 'circle')
-      this.circle1.anchor.setTo(0.5, 0.5);
-      this.circle1.scale.setTo(0.3);
+//      this.circle1 = this.game.add.sprite(350, 300, 'circle')
+//      this.circle1.anchor.setTo(0.5, 0.5);
+//      this.circle1.scale.setTo(0.3);
+//        
+//      this.triangle1 = this.game.add.sprite(225, 200, 'triangle');
+//      this.triangle1.anchor.setTo(0.5, 0.5);
+//      this.triangle1.scale.setTo(1, 0.8);
+//      this.triangle1.angle = -55;
         
-      this.triangle1 = this.game.add.sprite(225, 200, 'triangle');
-      this.triangle1.anchor.setTo(0.5, 0.5);
-      this.triangle1.scale.setTo(1, 0.8);
-      this.triangle1.angle = -55;
-        
-      this.platform3 = this.game.add.sprite(500, 250, 'platform');
+      this.platform3 = this.game.add.sprite(325, 250, 'platform');
       this.platform3.anchor.setTo(0.5, 0.5);
-      this.platform3.scale.setTo(0.4, 1);
-      this.platform3.angle = 10;
+//      this.platform3.scale.setTo(0.4, 1);
+//      this.platform3.angle = 10;
+         this.game.physics.arcade.enable(this.platform3);
+          
+         this.platform3.body.immovable = false;
+      
         
       this.startPlatform = this.game.add.sprite(100, 190, 'platform');
       this.startPlatform.angle = 90;
