@@ -11,7 +11,7 @@
 
       //load the game assets before the game starts
       preload: function() {
-        this.game.load.spritesheet('player', 'assets/therun.png', 280, 385);
+        this.game.load.spritesheet('player', 'assets/stickrunner1.png', 151, 213);
         this.game.load.tilemap('tilemap', 'assets/level.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tiles', 'assets/tiles_spritesheet.png');
       },
@@ -61,7 +61,7 @@
         this.sprite.body.velocity.x = 0;
           
         //Create a running animation for the sprite and play it
-        this.sprite.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7], 10, true);
+        this.sprite.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8], 10, true);
 //      this.sprite.animations.play('right');
 
 
@@ -87,7 +87,7 @@
         if(this.cursors.right.isDown){
 //          this.sprite.body.bounce.y = 0.2;
             this.sprite.animations.play('right');
-            this.sprite.body.velocity.x = 850;
+            this.sprite.body.velocity.x = 650;
         }
           
         if(this.cursors.right.isUp){
