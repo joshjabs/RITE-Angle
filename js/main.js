@@ -14,6 +14,7 @@
         this.game.load.spritesheet('player', 'assets/animate.png', 32, 32);
         this.game.load.tilemap('tilemap', 'assets/level.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tiles', 'assets/tiles_spritesheet.png');
+        this.game.load.audio('music', 'assets/The_Dirty_Moogs_-_Side_Scroller.mp3');
       },
 
       //execute after everything is loaded
@@ -25,7 +26,10 @@
           up : this.input.keyboard.addKey(Phaser.Keyboard.UP),
         };
 
-
+        //Play music in background
+        song = game.add.audio('music');
+        song.play();
+          
         //Start the Arcade Physics systems
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
