@@ -11,7 +11,7 @@
 
       //load the game assets before the game starts
       preload: function() {
-        this.game.load.spritesheet('player', 'assets/stickrunner1.png', 151, 213);
+        this.game.load.spritesheet('player', 'assets/animate.png', 32, 32);
         this.game.load.tilemap('tilemap', 'assets/level.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tiles', 'assets/tiles_spritesheet.png');
       },
@@ -48,8 +48,9 @@
 
         //Add the sprite to the game and enable arcade physics on it
         this.sprite = this.game.add.sprite(50, 50, 'player');
-        
+
         this.game.physics.arcade.enable(this.sprite);
+    
 
         //Change the world size to match the size of this layer
         this.groundLayer.resizeWorld();
@@ -59,10 +60,21 @@
         this.sprite.body.gravity.y = 2000;
         this.sprite.body.gravity.x = 20;
         this.sprite.body.velocity.x = 0;
+        
+        //If player hits bounds reset position to start
+        this.sprite.checkWorldBounds = true;
+        this.sprite.events.onOutOfBounds.add(playerOut, this);
           
-        //Create a running animation for the sprite and play it
-        this.sprite.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8], 10, true);
-//      this.sprite.animations.play('right');
+        function playerOut (sprite) {
+          sprite.reset(sprite.x, 50);
+          sprite.reset(sprite.y, 50);
+        }
+
+          
+        //Create a animation for the sprite and play it
+        this.sprite.animations.add('right', [10, 11, 12, 13, 14, 15, 16, 17, 18], 22, true);
+        this.sprite.animations.add('jump', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 10,  true);
+  
 
 
         //Make the camera follow the sprite
@@ -71,28 +83,35 @@
         //Enable cursor keys so we can create some controls
         this.cursors = this.game.input.keyboard.createCursorKeys();
 
-
       },
+
 
       update: function() {
 
         //Make the sprite collide with the ground layer
-        this.game.physics.arcade.collide(this.sprite, this.groundLayer);         
+        this.game.physics.arcade.collide(this.sprite, this.groundLayer);  
+        this.sprite.animations.play('right');
+        this.sprite.body.velocity.x = 300;
 
         if(controls.up.isDown){
             this.sprite.body.velocity.y = -600;
+            this.sprite.body.gravity.y = 0.8;
+            this.sprite.animations.play('jump');
 
         }
+          
+//        if(this.cursors.up.isUp){
+//
+//        }
 
         if(this.cursors.right.isDown){
 //          this.sprite.body.bounce.y = 0.2;
-            this.sprite.animations.play('right');
-            this.sprite.body.velocity.x = 650;
+//          this.sprite.animations.play('right');
+            this.sprite.body.velocity.x = 500;
         }
           
         if(this.cursors.right.isUp){
-            this.sprite.animations.stop(null, true);
-            this.sprite.body.velocity.x = 0;
+            this.sprite.body.gravity.y = 2000;
         }
           
 
