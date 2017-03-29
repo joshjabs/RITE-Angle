@@ -16,6 +16,8 @@
         this.game.load.tilemap('tilemap', 'assets/level.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tiles', 'assets/tiles_spritesheet.png');
         this.game.load.audio('music', 'assets/The_Dirty_Moogs_-_Side_Scroller.mp3');
+        this.game.load.image('background', 'assets/city_background_night.jpg');
+
       },
 
       //execute after everything is loaded
@@ -35,7 +37,8 @@
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         //Change the background colour
-        this.game.stage.backgroundColor = "#a9f0ff";
+        // this.game.stage.backgroundColor = "#a9f0ff";
+        this.game.add.tileSprite(0, 0, 4000, 1200, 'background');
 
         //Add the tilemap and tileset image. The first parameter in addTilesetImage
         //is the name you gave the tilesheet when importing it into Tiled, the second
@@ -104,6 +107,8 @@
         this.sprite.body.velocity.x = 300;
 
         if(controls.up.isDown){
+
+
             this.sprite.body.velocity.y = -600;
             this.sprite.body.gravity.y = 0.8;
             this.sprite.animations.play('jump');
