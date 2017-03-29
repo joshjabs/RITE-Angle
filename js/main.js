@@ -91,6 +91,8 @@
 
 
       update: function() {
+        
+        var counter;
 
         //Make the sprite collide with the ground layer
         this.game.physics.arcade.collide(this.sprite, this.groundLayer);  
@@ -98,6 +100,7 @@
         this.sprite.body.velocity.x = 300;
 
         if(controls.up.isDown){
+            
             this.sprite.body.velocity.y = -600;
             this.sprite.body.gravity.y = 0.8;
             this.sprite.animations.play('jump');
