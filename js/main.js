@@ -1,6 +1,7 @@
     //initiate the Phaser framework
     var controls = {};
-    var game = new Phaser.Game(800, 800, Phaser.AUTO); 
+    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example');
+
 
     var GameState = {
 
@@ -29,7 +30,7 @@
         //Play music in background
         song = game.add.audio('music');
         song.play();
-          
+
         //Start the Arcade Physics systems
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -54,7 +55,7 @@
         this.sprite = this.game.add.sprite(50, 50, 'player');
 
         this.game.physics.arcade.enable(this.sprite);
-    
+
 
         //Change the world size to match the size of this layer
         this.groundLayer.resizeWorld();
@@ -64,21 +65,21 @@
         this.sprite.body.gravity.y = 2000;
         this.sprite.body.gravity.x = 20;
         this.sprite.body.velocity.x = 0;
-        
+
         //If player hits bounds reset position to start
         this.sprite.checkWorldBounds = true;
         this.sprite.events.onOutOfBounds.add(playerOut, this);
-          
+
         function playerOut (sprite) {
           sprite.reset(sprite.x, 50);
           sprite.reset(sprite.y, 50);
         }
 
-          
+
         //Create a animation for the sprite and play it
         this.sprite.animations.add('right', [10, 11, 12, 13, 14, 15, 16, 17, 18], 22, true);
         this.sprite.animations.add('jump', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 10,  true);
-  
+
 
 
         //Make the camera follow the sprite
@@ -93,7 +94,7 @@
       update: function() {
 
         //Make the sprite collide with the ground layer
-        this.game.physics.arcade.collide(this.sprite, this.groundLayer);  
+        this.game.physics.arcade.collide(this.sprite, this.groundLayer);
         this.sprite.animations.play('right');
         this.sprite.body.velocity.x = 300;
 
@@ -103,7 +104,7 @@
             this.sprite.animations.play('jump');
 
         }
-          
+
 //        if(this.cursors.up.isUp){
 //
 //        }
@@ -113,11 +114,11 @@
 //          this.sprite.animations.play('right');
             this.sprite.body.velocity.x = 500;
         }
-          
+
         if(this.cursors.right.isUp){
             this.sprite.body.gravity.y = 2000;
         }
-          
+
 
         if(controls.left.isDown){
           this.sprite.body.bounce.y = 0.2;
