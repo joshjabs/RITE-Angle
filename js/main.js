@@ -95,6 +95,9 @@
 
         var score = (this.sprite.body.x / 100);
         document.getElementById("hud").innerText=Math.round(score);
+        if (score > document.getElementById("topScore").innerText){
+          document.getElementById("topScore").innerText=Math.round(score);
+        }
         //Make the sprite collide with the ground layer
         this.game.physics.arcade.collide(this.sprite, this.groundLayer);
         this.sprite.animations.play('right');
