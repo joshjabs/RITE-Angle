@@ -1,6 +1,9 @@
+
+
     //initiate the Phaser framework
     var controls = {};
-    var game = new Phaser.Game(800, 800, Phaser.AUTO); 
+    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example');
+
 
     var GameState = {
 
@@ -11,10 +14,14 @@
 
       //load the game assets before the game starts
       preload: function() {
-        this.game.load.spritesheet('player', 'assets/animate.png', 32, 32);
+        this.game.load.spritesheet('player', 'assets/animated.png', 32, 32);
         this.game.load.tilemap('tilemap', 'assets/level.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tiles', 'assets/tiles_spritesheet.png');
         this.game.load.audio('music', 'assets/The_Dirty_Moogs_-_Side_Scroller.mp3');
+        this.game.load.image('background', 'assets/city_background_night.jpg');
+        var timer = 0;
+        var loadingJump = false;
+
       },
 
       //execute after everything is loaded
@@ -29,12 +36,13 @@
         //Play music in background
         song = game.add.audio('music');
         song.play();
-          
+
         //Start the Arcade Physics systems
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         //Change the background colour
-        this.game.stage.backgroundColor = "#a9f0ff";
+        // this.game.stage.backgroundColor = "#a9f0ff";
+        this.game.add.tileSprite(0, 0, 4000, 1200, 'background');
 
         //Add the tilemap and tileset image. The first parameter in addTilesetImage
         //is the name you gave the tilesheet when importing it into Tiled, the second
@@ -54,7 +62,7 @@
         this.sprite = this.game.add.sprite(50, 50, 'player');
 
         this.game.physics.arcade.enable(this.sprite);
-    
+
 
         //Change the world size to match the size of this layer
         this.groundLayer.resizeWorld();
@@ -64,21 +72,23 @@
         this.sprite.body.gravity.y = 2000;
         this.sprite.body.gravity.x = 20;
         this.sprite.body.velocity.x = 0;
-        
+          
+//          Player player1 = new Player();
+
         //If player hits bounds reset position to start
         this.sprite.checkWorldBounds = true;
         this.sprite.events.onOutOfBounds.add(playerOut, this);
-          
+
         function playerOut (sprite) {
           sprite.reset(sprite.x, 50);
           sprite.reset(sprite.y, 50);
         }
 
-          
+
         //Create a animation for the sprite and play it
-        this.sprite.animations.add('right', [10, 11, 12, 13, 14, 15, 16, 17, 18], 22, true);
-        this.sprite.animations.add('jump', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 10,  true);
-  
+        this.sprite.animations.add('right', [1,2,3,4,5,6,7,8,9], 22, true);
+        this.sprite.animations.add('jump', [0], 10,  true);
+
 
 
         //Make the camera follow the sprite
@@ -91,24 +101,30 @@
 
 
       update: function() {
-        
-        var counter;
 
+        var score = (this.sprite.body.x / 100);
+        document.getElementById("hud").innerText=Math.round(score);
+        if (score > document.getElementById("topScore").innerText){
+          document.getElementById("topScore").innerText=Math.round(score);
+        }
         //Make the sprite collide with the ground layer
-        this.game.physics.arcade.collide(this.sprite, this.groundLayer);  
+        this.game.physics.arcade.collide(this.sprite, this.groundLayer);
+//        if(this.sprite.body.onFloor() == true){
         this.sprite.animations.play('right');
+//        }
+//          else{
+//              this.sprite.animations.play('jump');
+//          }
         this.sprite.body.velocity.x = 300;
 
-        if(controls.up.isDown){
-            
-            this.sprite.body.velocity.y = -600;
-            this.sprite.body.gravity.y = 0.8;
+        if(this.cursors.up.isDown && this.sprite.body.onFloor() == true){
+            this.sprite.body.velocity.y = -950;
             this.sprite.animations.play('jump');
 
         }
-          
+
 //        if(this.cursors.up.isUp){
-//
+//            this.sprite.animations.play('right');
 //        }
 
         if(this.cursors.right.isDown){
@@ -116,11 +132,11 @@
 //          this.sprite.animations.play('right');
             this.sprite.body.velocity.x = 500;
         }
-          
+
         if(this.cursors.right.isUp){
             this.sprite.body.gravity.y = 2000;
         }
-          
+
 
         if(controls.left.isDown){
           this.sprite.body.bounce.y = 0.2;
