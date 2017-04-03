@@ -19,8 +19,8 @@
         this.game.load.image('tiles', 'assets/tiles_spritesheet.png');
         this.game.load.audio('music', 'assets/The_Dirty_Moogs_-_Side_Scroller.mp3');
         this.game.load.image('background', 'assets/city_background_night.jpg');
-        var timer = 0;
-        var loadingJump = false;
+        this.game.load.image('ball', 'assets/geoball.png');
+        this.game.time.advancedTiming = true;
 
       },
 
@@ -31,6 +31,7 @@
           right : this.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
           left : this.input.keyboard.addKey(Phaser.Keyboard.LEFT),
           up : this.input.keyboard.addKey(Phaser.Keyboard.UP),
+          spacebar : this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
         };
 
         //Play music in background
@@ -58,11 +59,12 @@
         //Before you can use the collide function you need to set what tiles can collide
         this.map.setCollisionBetween(1, 100, true, 'GroundLayer');
 
-        //Add the sprite to the game and enable arcade physics on it
+        //Add the ball to the game and enable arcade physics on it
         this.sprite = this.game.add.sprite(50, 50, 'player');
-
         this.game.physics.arcade.enable(this.sprite);
-
+          
+                ball = this.game.add.sprite(0, 0,'ball');
+        this.game.physics.arcade.enable(ball);
 
         //Change the world size to match the size of this layer
         this.groundLayer.resizeWorld();
@@ -71,10 +73,8 @@
         this.sprite.body.bounce.y = 0.2;
         this.sprite.body.gravity.y = 2000;
         this.sprite.body.gravity.x = 20;
-        this.sprite.body.velocity.x = 0;
+        this.sprite.body.velocity.x = 0;  
           
-//          Player player1 = new Player();
-
         //If player hits bounds reset position to start
         this.sprite.checkWorldBounds = true;
         this.sprite.events.onOutOfBounds.add(playerOut, this);
@@ -88,20 +88,33 @@
         //Create a animation for the sprite and play it
         this.sprite.animations.add('right', [1,2,3,4,5,6,7,8,9], 22, true);
         this.sprite.animations.add('jump', [0], 10,  true);
-
-
-
+        this.sprite.animations.add('shoot', [10], 10, true);
+          
         //Make the camera follow the sprite
         this.game.camera.follow(this.sprite);
 
         //Enable cursor keys so we can create some controls
         this.cursors = this.game.input.keyboard.createCursorKeys();
-
       },
 
 
       update: function() {
-
+        
+        //initialize parameters for throwBall
+        var x, y;
+        var ball1 = this.ball1;
+          
+        //function that throws sprite
+        function throwBall(ball1, x, y){
+        ball1.x = x;
+        ball1.y = y;
+        ball1.body.bounce.y = 0.8;
+        ball1.body.gravity.y = 2500;
+        ball1.body.gravity.x = 20;
+        ball1.body.velocity.x = 800;
+        ball1.body.velocity.y = -900;
+        }
+        
         var score = (this.sprite.body.x / 100);
         document.getElementById("hud").innerText=Math.round(score);
         if (score > document.getElementById("topScore").innerText){
@@ -109,6 +122,8 @@
         }
         //Make the sprite collide with the ground layer
         this.game.physics.arcade.collide(this.sprite, this.groundLayer);
+        this.game.physics.arcade.collide(ball, this.groundLayer);
+
 //        if(this.sprite.body.onFloor() == true){
         this.sprite.animations.play('right');
 //        }
@@ -123,27 +138,17 @@
 
         }
 
-//        if(this.cursors.up.isUp){
-//            this.sprite.animations.play('right');
-//        }
-
         if(this.cursors.right.isDown){
-//          this.sprite.body.bounce.y = 0.2;
-//          this.sprite.animations.play('right');
             this.sprite.body.velocity.x = 500;
         }
+        
 
-        if(this.cursors.right.isUp){
-            this.sprite.body.gravity.y = 2000;
+        if(this.cursors.left.isDown ){
+            this.sprite.animations.play('shoot');
+            throwBall(ball, this.sprite.x + 20, this.sprite.y);
+
         }
-
-
-        if(controls.left.isDown){
-          this.sprite.body.bounce.y = 0.2;
-        }
-
-
-     }
+      }
     };
 
     game.state.add('GameState', GameState);
