@@ -59,11 +59,12 @@
         //Before you can use the collide function you need to set what tiles can collide
         this.map.setCollisionBetween(1, 100, true, 'GroundLayer');
 
-        //Add the ball to the game and enable arcade physics on it
+        //Add the player to the game and enable arcade physics on it
         this.sprite = this.game.add.sprite(50, 50, 'player');
         this.game.physics.arcade.enable(this.sprite);
-          
-                ball = this.game.add.sprite(0, 0,'ball');
+        
+        //Add ball to the game and enable arcade physics on it
+        ball = this.game.add.sprite(0, 0,'ball');
         this.game.physics.arcade.enable(ball);
 
         //Change the world size to match the size of this layer
@@ -95,6 +96,30 @@
 
         //Enable cursor keys so we can create some controls
         this.cursors = this.game.input.keyboard.createCursorKeys();
+          
+        pause_label = game.add.text(20, 20, 'Pause', {
+       font: '24px Arial',
+       fill: '#fff'
+       });
+       pause_label.fixedToCamera = true;
+
+       pause_label.inputEnabled = true;
+       pause_label.events.onInputUp.add(function() {
+       game.paused = true;
+       });
+
+       // Add a input listener that can help us return from being paused
+       game.input.onDown.add(unpause, self);
+
+       function unpause(event) {
+         if (game.paused) {
+            game.paused = false;
+            pause_label.text="Pause";
+        } else {
+          pause_label.text="Play";
+          }
+           
+    };
       },
 
 
@@ -111,7 +136,7 @@
         ball1.body.bounce.y = 0.8;
         ball1.body.gravity.y = 2500;
         ball1.body.gravity.x = 20;
-        ball1.body.velocity.x = 800;
+        ball1.body.velocity.x = 375;
         ball1.body.velocity.y = -900;
         }
         
@@ -145,9 +170,14 @@
 
         if(this.cursors.left.isDown ){
             this.sprite.animations.play('shoot');
+            
             throwBall(ball, this.sprite.x + 20, this.sprite.y);
 
         }
+          
+        function collisionHandler(_player, _ball) {        ball.x = this.sprite - 200; ball.y=0; }
+          
+        game.physics.arcade.overlap(this.sprite, ball, collisionHandler, null, this)
       }
     };
 
