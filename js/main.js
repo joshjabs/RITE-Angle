@@ -175,10 +175,17 @@
 
         }
           
-        function collisionHandler(_player, _ball) {        ball.x = this.sprite - 200; ball.y=0; }
-          
+        //check to see if player "catches" ball
+        function collisionHandler(_player, _ball) {ball.x = this.sprite - 200; ball.y=0;}
         game.physics.arcade.overlap(this.sprite, ball, collisionHandler, null, this)
+        
+        //https://gamedevacademy.org/how-to-debug-phaser-games/
+        //print sprite info to screen
+        this.game.debug.spriteInfo(this.sprite, 20, 75);
+        
       }
+        
+
     };
 
     game.state.add('GameState', GameState);
