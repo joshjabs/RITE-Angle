@@ -160,32 +160,25 @@
         if(this.cursors.up.isDown && this.sprite.body.onFloor() == true){
             this.sprite.body.velocity.y = -950;
             this.sprite.animations.play('jump');
-
         }
 
         if(this.cursors.right.isDown){
             this.sprite.body.velocity.x = 500;
         }
         
-
         if(this.cursors.left.isDown ){
             this.sprite.animations.play('shoot');
-            
             throwBall(ball, this.sprite.x + 20, this.sprite.y);
-
         }
           
         //check to see if player "catches" ball
-        function collisionHandler(_player, _ball) {ball.x = this.sprite - 200; ball.y=0;}
+        function collisionHandler(_player, _ball) {ball.x = this.sprite - 200; ball.y=0;  this.sprite.animations.play('shoot');}
         game.physics.arcade.overlap(this.sprite, ball, collisionHandler, null, this)
         
-        //https://gamedevacademy.org/how-to-debug-phaser-games/
         //print sprite info to screen
         this.game.debug.spriteInfo(this.sprite, 20, 75);
         
       }
-        
-
     };
 
     game.state.add('GameState', GameState);
