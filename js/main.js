@@ -20,6 +20,7 @@
         this.game.load.audio('music', 'assets/The_Dirty_Moogs_-_Side_Scroller.mp3');
         this.game.load.image('background', 'assets/city_background_night.jpg');
         this.game.load.image('ball', 'assets/geoball.png');
+          this.game.load.image('square', 'assets/square.png');
         this.game.time.advancedTiming = true;
 
       },
@@ -66,6 +67,10 @@
         //Add ball to the game and enable arcade physics on it
         ball = this.game.add.sprite(0, 0,'ball');
         this.game.physics.arcade.enable(ball);
+          
+        //Add square to the game and enable arcade physics on it
+        square = this.game.add.sprite(0, 0,'square');
+        this.game.physics.arcade.enable(square);
 
         //Change the world size to match the size of this layer
         this.groundLayer.resizeWorld();
@@ -127,19 +132,29 @@
         
         //initialize parameters for throwBall
         var x, y;
-        var ball1 = this.ball1;
+        var _aSprite = this.aSprite;
           
-        //function that throws sprite
-        function throwBall(ball1, x, y){
-        ball1.x = x;
-        ball1.y = y;
-        ball1.body.bounce.y = 0.8;
-        ball1.body.gravity.y = 2500;
-        ball1.body.gravity.x = 20;
-        ball1.body.velocity.x = 375;
-        ball1.body.velocity.y = -900;
+        //function that throws ball
+        function throwBall(_aSprite, x, y){
+        _aSprite.x = x;
+        _aSprite.y = y;
+        _aSprite.body.bounce.y = 0.8;
+        _aSprite.body.gravity.y = 2500;
+        _aSprite.body.gravity.x = 20;
+        _aSprite.body.velocity.x = 900;
+        _aSprite.body.velocity.y = -900;
         }
-        
+          
+        //function that throws square
+        function throwSquare(_aSprite, x, y){
+        _aSprite.x = x;
+        _aSprite.y = y;
+        _aSprite.body.gravity.y = 4500;
+        _aSprite.body.gravity.x = 2000;
+        _aSprite.body.velocity.x = 400;
+        _aSprite.body.velocity.y = -900;
+        }
+    
         var score = (this.sprite.body.x / 100);
         document.getElementById("hud").innerText=Math.round(score);
         if (score > document.getElementById("topScore").innerText){
@@ -148,6 +163,7 @@
         //Make the sprite collide with the ground layer
         this.game.physics.arcade.collide(this.sprite, this.groundLayer);
         this.game.physics.arcade.collide(ball, this.groundLayer);
+        this.game.physics.arcade.collide(square, this.groundLayer);
 
 //        if(this.sprite.body.onFloor() == true){
         this.sprite.animations.play('right');
@@ -155,7 +171,7 @@
 //          else{
 //              this.sprite.animations.play('jump');
 //          }
-        this.sprite.body.velocity.x = 300;
+        this.sprite.body.velocity.x = 500;
 
         if(this.cursors.up.isDown && this.sprite.body.onFloor() == true){
             this.sprite.body.velocity.y = -950;
@@ -163,20 +179,26 @@
         }
 
         if(this.cursors.right.isDown){
-            this.sprite.body.velocity.x = 500;
+            this.sprite.body.velocity.x = 700;
         }
         
         if(this.cursors.left.isDown ){
             this.sprite.animations.play('shoot');
             throwBall(ball, this.sprite.x + 20, this.sprite.y);
         }
+        
+        if(this.cursors.down.isDown ){
+            this.sprite.animations.play('shoot');
+            throwSquare(square, this.sprite.x + 20, this.sprite.y);
+        }
+          
           
         //check to see if player "catches" ball
         function collisionHandler(_player, _ball) {ball.x = this.sprite - 200; ball.y=0;  this.sprite.animations.play('shoot');}
         game.physics.arcade.overlap(this.sprite, ball, collisionHandler, null, this)
         
         //print sprite info to screen
-        this.game.debug.spriteInfo(this.sprite, 20, 75);
+//        this.game.debug.spriteInfo(this.sprite, 20, 75);
         
       }
     };
