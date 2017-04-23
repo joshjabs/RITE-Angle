@@ -36,11 +36,11 @@ var playState = {
         //Add the player to the game and enable arcade physics on it
         this.sprite = this.game.add.sprite(50, 50, 'player');
         this.game.physics.arcade.enable(this.sprite);
-        
+
         //Add ball to the game and enable arcade physics on it
         ball = this.game.add.sprite(0, 0,'ball');
         this.game.physics.arcade.enable(ball);
-          
+
         //Add square to the game and enable arcade physics on it
         square = this.game.add.sprite(0, 0,'square');
         this.game.physics.arcade.enable(square);
@@ -52,29 +52,27 @@ var playState = {
         this.sprite.body.bounce.y = 0.2;
         this.sprite.body.gravity.y = 2000;
         this.sprite.body.gravity.x = 20;
-        this.sprite.body.velocity.x = 0;  
-          
+        this.sprite.body.velocity.x = 0;
+
         //If player hits bounds reset position to start
         this.sprite.checkWorldBounds = true;
         this.sprite.events.onOutOfBounds.add(playerOut, this);
-
         function playerOut (sprite) {
-          sprite.reset(sprite.x, 50);
-          sprite.reset(sprite.y, 50);
-        }
+          game.state.start('menu', true, false, false);
 
+        }
 
         //Create a animation for the sprite and play it
         this.sprite.animations.add('right', [1,2,3,4,5,6,7,8,9], 22, true);
         this.sprite.animations.add('jump', [0], 10,  true);
         this.sprite.animations.add('shoot', [10], 10, true);
-          
+
         //Make the camera follow the sprite
         this.game.camera.follow(this.sprite);
 
         //Enable cursor keys so we can create some controls
         this.cursors = this.game.input.keyboard.createCursorKeys();
-          
+
         pause_label = game.add.text(20, 20, 'Pause', {
        font: '24px Arial',
        fill: '#fff'
@@ -96,17 +94,17 @@ var playState = {
         } else {
           pause_label.text="Play";
           }
-           
+
     };
       },
 
 
       update: function() {
-        
+
         //initialize parameters for throwBall
         var x, y;
         var _aSprite = this.aSprite;
-          
+
         //function that throws ball
         function throwBall(_aSprite, x, y){
         _aSprite.x = x;
@@ -117,7 +115,7 @@ var playState = {
         _aSprite.body.velocity.x = 900;
         _aSprite.body.velocity.y = -900;
         }
-          
+
         //function that throws square
         function throwSquare(_aSprite, x, y){
         _aSprite.x = x;
@@ -127,7 +125,7 @@ var playState = {
         _aSprite.body.velocity.x = 400;
         _aSprite.body.velocity.y = -900;
         }
-    
+
         var score = (this.sprite.body.x / 100);
         document.getElementById("hud").innerText=Math.round(score);
         if (score > document.getElementById("topScore").innerText){
@@ -154,29 +152,29 @@ var playState = {
         if(this.cursors.right.isDown){
             this.sprite.body.velocity.x = 700;
         }
-        
+
         if(this.cursors.left.isDown ){
             this.sprite.animations.play('shoot');
             throwBall(ball, this.sprite.x + 20, this.sprite.y);
         }
-        
+
         if(this.cursors.down.isDown ){
             this.sprite.animations.play('shoot');
             throwSquare(square, this.sprite.x + 20, this.sprite.y);
         }
-          
-          
+
+
         //check to see if player "catches" ball
         function collisionHandler(_player, _ball) {ball.x = this.sprite - 200; ball.y=0;  this.sprite.animations.play('shoot');}
         game.physics.arcade.overlap(this.sprite, ball, collisionHandler, null, this)
-                
+
         //print sprite info to screen
 //        this.game.debug.spriteInfo(this.sprite, 20, 75);
-        
+
       }
     };
 
-    
+
 //    Die: function() {
 //        game.state.start('die');
 //    }
@@ -184,4 +182,3 @@ var playState = {
 //    Win: function() {
 //        game.state.start('win');
 //    }
-    

@@ -1,9 +1,9 @@
 var loadState = {
-    
+
     preload: function() {
-        
+
         var loadingLabel = game.add.text(80, 150, 'loading...', {font: '30px Courier', fill: '#ffffff'});
-        
+
         //load in assets
         this.game.load.spritesheet('player', 'assets/animated.png', 32, 32);
         this.game.load.tilemap('tilemap', 'assets/level.json', null, Phaser.Tilemap.TILED_JSON);
@@ -14,10 +14,11 @@ var loadState = {
         this.game.load.image('square', 'assets/square.png');
         this.game.time.advancedTiming = true;
     },
-    
+
     create: function() {
-    
+
     //call menu state
-    game.state.start('menu');
+    var isAlive = true;
+    game.state.start('menu', true, false, isAlive);
  }
 };
