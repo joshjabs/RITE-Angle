@@ -19,7 +19,7 @@ var playState = {
 
         //Change the background colour
         // this.game.stage.backgroundColor = "#a9f0ff";
-        this.game.add.tileSprite(0, 0, 4000, 1200, 'background');
+        this.game.add.tileSprite(0, 0, 10000, 1200, 'background');
 
         //Add the tilemap and tileset image. The first parameter in addTilesetImage
         //is the name you gave the tilesheet when importing it into Tiled, the second
@@ -31,6 +31,8 @@ var playState = {
         //GroundLayer though
         this.backgroundlayer = this.map.createLayer('BackgroundLayer');
         this.groundLayer = this.map.createLayer('GroundLayer');
+        this.game.stage.backgroundColor = "white";
+
 
         //Before you can use the collide function you need to set what tiles can collide
         this.map.setCollisionBetween(1, 100, true, 'GroundLayer');
