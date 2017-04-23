@@ -6,7 +6,7 @@ var loadState = {
 
         //load in assets
         this.game.load.spritesheet('player', 'assets/animated.png', 32, 32);
-        this.game.load.tilemap('tilemap', 'assets/level2.json', null, Phaser.Tilemap.TILED_JSON);
+        this.game.load.tilemap('tilemap', 'assets/level.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tiles', 'assets/tiles_spritesheet.png');
         this.game.load.audio('music', 'assets/The_Dirty_Moogs_-_Side_Scroller.mp3');
         this.game.load.image('background', 'assets/city_background_night.png');

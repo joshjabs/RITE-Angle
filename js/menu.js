@@ -9,6 +9,7 @@ var menuState = {
     },
 
     create: function() {
+      game.world.removeAll();
 
         //display
         var nameLabel = game.add.text(80, 80, 'Rite Angle', {font: '50px Arial', fill: '#ffffff'});
@@ -17,6 +18,8 @@ var menuState = {
           var startLabel = game.add.text(80, 160, 'press the "W" key to start', {font: '25px Arial', fill: '#ffffff'});
           if(currentLevel>1){
             var start2Label = game.add.text(80, 190, 'Completed Level 1!', {font: '25px Arial', fill: '#ffffff'});
+            this.game.load.tilemap('tilemap', 'assets/level2.json', null, Phaser.Tilemap.TILED_JSON);
+
           }
         } else {
           var startLabel = game.add.text(80, 160, 'You died :(', {font: '25px Arial', fill: '#ffffff'});
