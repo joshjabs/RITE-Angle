@@ -1,3 +1,5 @@
+var score;
+
 var playState = {
        create: function() {
 
@@ -58,7 +60,14 @@ var playState = {
         this.sprite.checkWorldBounds = true;
         this.sprite.events.onOutOfBounds.add(playerOut, this);
         function playerOut (sprite) {
-          game.state.start('menu', true, false, false);
+          song.stop();
+
+          if(score > 35) {
+              game.state.start('menu', true, false, true, 2);
+          } else {
+              game.state.start('menu', true, false, false, 1);
+          }
+
 
         }
 
@@ -73,19 +82,18 @@ var playState = {
         //Enable cursor keys so we can create some controls
         this.cursors = this.game.input.keyboard.createCursorKeys();
 
-        pause_label = game.add.text(20, 20, 'Pause', {
-       font: '24px Arial',
-       fill: '#fff'
+//PAUSE
+      pause_label = game.add.text(20, 20, 'Pause', {
+         font: '24px Arial',
+         fill: '#fff'
        });
        pause_label.fixedToCamera = true;
 
        pause_label.inputEnabled = true;
        pause_label.events.onInputUp.add(function() {
-       game.paused = true;
-       });
+         game.paused = true;
+        });
 
-       // Add a input listener that can help us return from being paused
-       game.input.onDown.add(unpause, self);
 
        function unpause(event) {
          if (game.paused) {
@@ -126,7 +134,7 @@ var playState = {
         _aSprite.body.velocity.y = -900;
         }
 
-        var score = (this.sprite.body.x / 100);
+        score = (this.sprite.body.x / 100);
         document.getElementById("hud").innerText=Math.round(score);
         if (score > document.getElementById("topScore").innerText){
           document.getElementById("topScore").innerText=Math.round(score);

@@ -1,9 +1,10 @@
-var isAlive;
+var isAlive, currentLevel;
 
 var menuState = {
 
-    init: function(set) {
-      isAlive = set;
+    init: function(alive, level) {
+      isAlive = alive;
+      currentLevel = level;
       console.log(isAlive);
     },
 
@@ -14,8 +15,12 @@ var menuState = {
 
         if(isAlive){
           var startLabel = game.add.text(80, 160, 'press the "W" key to start', {font: '25px Arial', fill: '#ffffff'});
+          if(currentLevel>1){
+            var start2Label = game.add.text(80, 190, 'Completed Level 1!', {font: '25px Arial', fill: '#ffffff'});
+          }
         } else {
           var startLabel = game.add.text(80, 160, 'You died :(', {font: '25px Arial', fill: '#ffffff'});
+          var start2Label = game.add.text(80, 190, 'Press W to try again', {font: '25px Arial', fill: '#ffffff'});
         }
 
         //define the w key

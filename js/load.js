@@ -19,6 +19,6 @@ var loadState = {
 
     //call menu state
     var isAlive = true;
-    game.state.start('menu', true, false, isAlive);
+    game.state.start('menu', true, false, isAlive, 1);
  }
 };
