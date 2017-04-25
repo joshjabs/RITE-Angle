@@ -87,7 +87,7 @@ var playState = {
 //PAUSE
       pause_label = game.add.text(20, 20, 'Pause', {
          font: '24px Arial',
-         fill: '#fff'
+         fill: '#000000'
        });
        pause_label.fixedToCamera = true;
 
