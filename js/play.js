@@ -26,6 +26,7 @@ var playState = {
         //is the key to the asset in Phaser
         this.map = this.game.add.tilemap('tilemap');
         this.map.addTilesetImage('tiles128', 'tiles');
+        game.physics.arcade.TILE_BIAS = 32;
 
         //Add both the background and ground layers. We won't be doing anything with the
         //GroundLayer though
