@@ -39,6 +39,58 @@ var playState = {
         this.map.setCollisionBetween(1, 100, true, 'GroundLayer');
 
         //Add the player to the game and enable arcade physics on it
+        var triangle = [];
+        for(i=0; i < 60; i++)
+        {
+        triangle[i] = this.game.add.sprite(0,0, 'triangle');
+	}
+	    triangle[0] = this.game.add.sprite(370,330, 'triangle');
+	    triangle[1] = this.game.add.sprite(470,330, 'triangle');
+	    triangle[2] = this.game.add.sprite(570,330, 'triangle');
+	    triangle[4] = this.game.add.sprite(870,540, 'triangle');
+	    triangle[5] = this.game.add.sprite(970,540, 'triangle');
+	    triangle[6] = this.game.add.sprite(1070,540, 'triangle');
+	    triangle[7] = this.game.add.sprite(1170,540, 'triangle');
+	    triangle[8] = this.game.add.sprite(1270,540, 'triangle');
+	    triangle[9] = this.game.add.sprite(1370,540, 'triangle');
+	    triangle[10] = this.game.add.sprite(1470,400, 'triangle');
+	    triangle[11] = this.game.add.sprite(1570,400, 'triangle');
+	    triangle[12] = this.game.add.sprite(1670,400, 'triangle');
+	    triangle[13] = this.game.add.sprite(1770,400, 'triangle');
+	    triangle[14] = this.game.add.sprite(1870,400, 'triangle');
+	    triangle[15] = this.game.add.sprite(1970,400, 'triangle');
+	    triangle[16] = this.game.add.sprite(2070,400, 'triangle');
+	    triangle[17] = this.game.add.sprite(2170,400, 'triangle');
+	    triangle[18] = this.game.add.sprite(2270,400, 'triangle');
+	    triangle[19] = this.game.add.sprite(2370,400, 'triangle');
+	    triangle[20] = this.game.add.sprite(2470,400, 'triangle');
+	    triangle[21] = this.game.add.sprite(2570,400, 'triangle');
+	    triangle[22] = this.game.add.sprite(2770,120, 'triangle');
+	    triangle[23] = this.game.add.sprite(2870,120, 'triangle');
+	    triangle[24] = this.game.add.sprite(2970,120, 'triangle');
+	    triangle[25] = this.game.add.sprite(3070,120, 'triangle');
+	    triangle[26] = this.game.add.sprite(3170,120, 'triangle');
+	    triangle[27] = this.game.add.sprite(3270,120, 'triangle');
+	    triangle[28] = this.game.add.sprite(3370,120, 'triangle');
+	    triangle[29] = this.game.add.sprite(3470,120, 'triangle');
+	    triangle[30] = this.game.add.sprite(3570,200, 'triangle');
+	    triangle[31] = this.game.add.sprite(3970,300, 'triangle');
+	    triangle[32] = this.game.add.sprite(4000,280, 'triangle');
+	    triangle[33] = this.game.add.sprite(4030,260, 'triangle');
+	    triangle[34] = this.game.add.sprite(4060,240, 'triangle');
+	    triangle[35] = this.game.add.sprite(4090,220, 'triangle');
+	    triangle[36] = this.game.add.sprite(4120,200, 'triangle');
+	    triangle[37] = this.game.add.sprite(4150,180, 'triangle');
+	    triangle[38] = this.game.add.sprite(5070,400, 'triangle');
+	    triangle[39] = this.game.add.sprite(5100,380, 'triangle');
+	    triangle[40] = this.game.add.sprite(5130,360, 'triangle');
+	    triangle[41] = this.game.add.sprite(5430,540, 'triangle');
+	    triangle[42] = this.game.add.sprite(5530,540, 'triangle');
+	    triangle[43] = this.game.add.sprite(6530,610, 'triangle');
+	    triangle[44] = this.game.add.sprite(6430,610, 'triangle');
+	    triangle[45] = this.game.add.sprite(6630,610, 'triangle');
+	     triangle[46] = this.game.add.sprite(6730,610, 'triangle');
+	      triangle[47] = this.game.add.sprite(6830,610, 'triangle');
         this.sprite = this.game.add.sprite(50, 50, 'player');
         this.game.physics.arcade.enable(this.sprite);
 
@@ -65,7 +117,7 @@ var playState = {
         function playerOut (sprite) {
           song.stop();
 
-          if(score > 35) {
+          if(score > 69) {
               game.state.start('menu', true, false, true, 2);
           } else {
               game.state.start('menu', true, false, false, 1);
@@ -177,7 +229,9 @@ var playState = {
 
         //check to see if player "catches" ball
         function collisionHandler(_player, _ball) {ball.x = this.sprite - 200; ball.y=0;  this.sprite.animations.play('shoot');}
-        game.physics.arcade.overlap(this.sprite, ball, collisionHandler, null, this)
+        game.physics.arcade.overlap(this.sprite, ball, collisionHandler, null, this);
+        
+       // function collisionHandler(_triangle, _gound) {ball.x = this.sprite - 200; ball.y=0;  this.sprite.animations.play('shoot');}
 
         //print sprite info to screen
 //        this.game.debug.spriteInfo(this.sprite, 20, 75);
