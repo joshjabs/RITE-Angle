@@ -82,8 +82,9 @@ var playState = {
         this.sprite.events.onOutOfBounds.add(playerOut, this);
         function playerOut (sprite) {
           song.stop();
-
-          if(this.sprite.x > 800) {
+          console.log (this.sprite.body.x);
+          var mapLength = 5000;
+          if(this.sprite.body.x > mapLength) {
               game.state.start('menu', true, false, true, (currentLevel+1));
           } else {
               game.state.start('menu', true, false, false, 1);
