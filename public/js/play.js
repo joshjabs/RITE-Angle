@@ -184,7 +184,7 @@ var playState = {
         function collisionHandler(_player, _ball) {ball.x = this.sprite - 200; ball.y=0;  this.sprite.animations.play('shoot');}
 
         function getCoin(){
-          map.putTile(-1, tokensLayer.getTileX(player.x), tokensLayer.getTileY(player.y ));
+          this.map.putTile(-1, this.tokensLayer.getTileX(this.sprite.x), this.tokensLayer.getTileY(this.sprite.y ));
         }
 
         game.physics.arcade.overlap(this.sprite, ball, collisionHandler, null, this);
