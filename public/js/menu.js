@@ -1,4 +1,4 @@
-var isAlive, currentLevel;
+var isAlive, currentLevel=1;
 
 var menuState = {
 
@@ -17,14 +17,8 @@ var menuState = {
         var nameLabel = game.add.text(80, 80, 'Rite Angle', {font: '50px Arial', fill: '#000000'});
 
         if(isAlive){
-          var startLabel = game.add.text(80, 160, 'press the "W" key to start', {font: '25px Arial', fill: '#000000'});
-          if(currentLevel>1){
-            var start2Label = game.add.text(80, 190, 'Completed Level 1!', {font: '25px Arial', fill: '#000000'});
-            this.game.load.tilemap('tilemap', 'assets/level2.json', null, Phaser.Tilemap.TILED_JSON);
+          var startLabel = game.add.text(80, 160, ('press the "W" key to start level ' + currentLevel), {font: '25px Arial', fill: '#000000'});
 
-          } else{
-            this.game.load.tilemap('tilemap', 'assets/level.json', null, Phaser.Tilemap.TILED_JSON);
-          }
         } else {
           var startLabel = game.add.text(80, 160, 'You died :(', {font: '25px Arial', fill: '#000000'});
           var start2Label = game.add.text(80, 190, 'Press W to try again', {font: '25px Arial', fill: '#000000'});
@@ -39,7 +33,8 @@ var menuState = {
 
     //start game
     start: function() {
-    game.state.start('play');
+    game.state.start('play', true, false, currentLevel);
+
  },
 
 

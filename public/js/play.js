@@ -1,6 +1,11 @@
-var score;
+var score, currentLevel;
 
 var playState = {
+
+      init: function(level) {
+        currentLevel = level;
+      },
+
        create: function() {
 
         var controls = {
@@ -24,9 +29,17 @@ var playState = {
         //Add the tilemap and tileset image. The first parameter in addTilesetImage
         //is the name you gave the tilesheet when importing it into Tiled, the second
         //is the key to the asset in Phaser
-        this.map = this.game.add.tilemap('tilemap');
+
+        if(currentLevel ==1){
+          this.map = this.game.add.tilemap('tilemap');
+        } else {
+          this.map = this.game.add.tilemap('tilemap2');
+
+        }
+
         this.map.addTilesetImage('tiles128', 'tiles');
         game.physics.arcade.TILE_BIAS = 32;
+
 
         //Add both the background and ground layers. We won't be doing anything with the
         //GroundLayer though
@@ -35,7 +48,7 @@ var playState = {
         this.tokensLayer = this.map.createLayer('Tokens');
 
         this.game.stage.backgroundColor = "white";
-        this.game.load.tilemap('tilemap', 'assets/level.json', null, Phaser.Tilemap.TILED_JSON);
+
 
 
 
@@ -70,8 +83,8 @@ var playState = {
         function playerOut (sprite) {
           song.stop();
 
-          if(score > 35) {
-              game.state.start('menu', true, false, true, 2);
+          if(this.sprite.x > 800) {
+              game.state.start('menu', true, false, true, (currentLevel+1));
           } else {
               game.state.start('menu', true, false, false, 1);
           }
