@@ -113,7 +113,7 @@ var playState = {
         function playerOut (sprite) {
           song.stop();
 
-          if(score > 69) {
+          if(this.sprite.x > 6830) {
               game.state.start('menu', true, false, true, 2);
               song = game.add.audio('cheer');
         song.play();
