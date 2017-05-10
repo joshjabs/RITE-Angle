@@ -40,10 +40,6 @@ var playState = {
 
         //Add the player to the game and enable arcade physics on it
         var triangle = [];
-        for(i=0; i < 60; i++)
-        {
-        triangle[i] = this.game.add.sprite(0,0, 'triangle');
-	}
 	    triangle[0] = this.game.add.sprite(370,330, 'triangle');
 	    triangle[1] = this.game.add.sprite(470,330, 'triangle');
 	    triangle[2] = this.game.add.sprite(570,330, 'triangle');
@@ -119,8 +115,12 @@ var playState = {
 
           if(score > 69) {
               game.state.start('menu', true, false, true, 2);
+              song = game.add.audio('cheer');
+        song.play();
           } else {
               game.state.start('menu', true, false, false, 1);
+              song = game.add.audio('boo');
+        song.play();
           }
 
 
@@ -220,16 +220,20 @@ var playState = {
             this.sprite.animations.play('shoot');
             throwBall(ball, this.sprite.x + 20, this.sprite.y);
         }
-
-        if(this.cursors.down.isDown ){
+this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        if(this.spaceKey.isDown ){
             this.sprite.animations.play('shoot');
             throwSquare(square, this.sprite.x + 20, this.sprite.y);
         }
 
 
         //check to see if player "catches" ball
-        function collisionHandler(_player, _ball) {ball.x = this.sprite - 200; ball.y=0;  this.sprite.animations.play('shoot');}
-        game.physics.arcade.overlap(this.sprite, ball, collisionHandler, null, this);
+        //function collisionHandler(_player, _ball) {ball.x = this.sprite - 200; ball.y=0;  this.sprite.animations.play('shoot');}
+        //game.physics.arcade.overlap(this.sprite, ball, collisionHandler, null, this);
+        function collisionHandler(_player, _triangle)
+        {
+			alert('here');
+		}
         
        // function collisionHandler(_triangle, _gound) {ball.x = this.sprite - 200; ball.y=0;  this.sprite.animations.play('shoot');}
 

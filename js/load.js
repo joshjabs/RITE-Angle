@@ -13,6 +13,8 @@ var loadState = {
         this.game.load.tilemap('tilemap', 'assets/level.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.image('tiles', 'assets/tiles_spritesheet.png');
         this.game.load.audio('music', 'assets/The_Dirty_Moogs_-_Side_Scroller.mp3');
+        this.game.load.audio('cheer', 'assets/cheer.mp3');
+        this.game.load.audio('boo', 'assets/boo.mp3');
         this.game.load.image('background', 'assets/city_background_night.png');
         this.game.load.image('ball', 'assets/geoball.png');
         this.game.load.image('square', 'assets/square.png');
