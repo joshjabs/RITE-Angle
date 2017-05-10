@@ -199,10 +199,21 @@ var playState = {
 
         function getCoin(){
           this.map.putTile(-1, this.tokensLayer.getTileX(this.sprite.x), this.tokensLayer.getTileY(this.sprite.y ));
+          if(ball) {
+            this.map.putTile(-1, this.tokensLayer.getTileX(ball.x), this.tokensLayer.getTileY(ball.y ));
+          }
+          if (square) {
+            this.map.putTile(-1, this.tokensLayer.getTileX(square.x), this.tokensLayer.getTileY(square.y ));
+
+          }
+
         }
 
         game.physics.arcade.overlap(this.sprite, ball, collisionHandler, null, this);
         game.physics.arcade.overlap(this.sprite, this.tokensLayer, getCoin, null, this);
+        game.physics.arcade.overlap(ball, this.tokensLayer, getCoin, null, this);
+        game.physics.arcade.overlap(square, this.tokensLayer, getCoin, null, this);
+
 
         //print sprite info to screen
 //        this.game.debug.spriteInfo(this.sprite, 20, 75);
