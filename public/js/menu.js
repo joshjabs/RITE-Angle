@@ -1,3 +1,4 @@
+
 var isAlive, currentLevel=1;
 
 var menuState = {
@@ -22,6 +23,12 @@ var menuState = {
         } else {
           var startLabel = game.add.text(80, 160, 'You died :(', {font: '25px Arial', fill: '#000000'});
           var start2Label = game.add.text(80, 190, 'Press W to try again', {font: '25px Arial', fill: '#000000'});
+
+          // <?php
+          //   DB::table('game_histories')->insert(
+          //       ['name' => 'guest', 'score' => 5]
+          //   );
+          // ?>
         }
 
         //define the w key
